@@ -7,7 +7,7 @@
 
 int main(){
     int ret, fd;
-    char* numReceive;
+    char numReceive[5];
     printf("Starting device test code example...\n");
     
     fd = open("/dev/generDev", O_RDWR); //Open the device to read

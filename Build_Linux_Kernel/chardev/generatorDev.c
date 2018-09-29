@@ -15,7 +15,7 @@ MODULE_DESCRIPTION("A simple visualization for Linux char driver");
 MODULE_VERSION("0.1");
 
 static int majorNumber; //device number 
-static char* numberGen; //Number that module generate
+static char numberGen[5]; //Number that module generate
 static int numberOpens = 0; //Number of time that devide is opened
 static struct class* genClass = NULL;
 static struct device* genDevice = NULL;
