@@ -5,12 +5,12 @@ Nhiệm vụ: Hàm này dùng để khởi tạo khi xây dựng một driver. H
 Quy trình: 
 - Đầu tiên hàm này sẽ đăng kí với hệ thống để hệ thống cấp cho một majorNumber. Nếu thành công (majorNumber < 0) thì đăng kí thất bại. 
 - Sau khi đăng kí thành công. Tiếp theo ta tiến hành khởi tạo một lớp thiết bị (device class) với câu lện
-     genClass = class_create(THIS_MODULE, CLASS_NAME);
+     ```genClass = class_create(THIS_MODULE, CLASS_NAME);```
     Hàm này sẽ trả về một con trỏ hàm đến class device được khởi tạo nếu thành công.
     Ngược lại chúng ta phải hủy bỏ đi số majorNumber đã đăng kí.
     Sau đó thông báo ra màn hình việc đăng kí thất bại. 
 - Cuối cùng sẽ đăng kí một driver qua lệnh:
-    genDevice = device_create(genClass, NULL, MKDEV(majorNumber, 0), NULL, DEVICE_NAME);
+    ```genDevice = device_create(genClass, NULL, MKDEV(majorNumber, 0), NULL, DEVICE_NAME);```
     Hàm này sẽ trả về con trỏ kiểu device-driver device struct được định nghĩa ở "driver.h" nếu thành công.
     Ngược lại chúng ta sẽ hủy bỏ genClass và majorNumber vừa mới đăng kí. 
 ## static void __exit generDev_exit(void)
@@ -24,8 +24,10 @@ Quy trình:
 ## static ssize_t dev_read(struct file *filep, char* buffer, size_t len, loff_t *offset)
 Nhiệm vụ: Hàm này được gọi khi userspace muốn truy cập dữ liệu vào từ device. 
 Quy trình:
-- Ta dùng lệnh get_random_bytes(numberGen, sizeof(int)) để random một số ngẫu nhiên. 
-- Sau đó, ta gửi dữ liệu này đến userspace thông qua lệnh: copy_to_user(buffer, numberGen, sizeof(int)). Nếu thành công, hàm copy_to_user sẽ trả về 0.
+- Ta dùng lệnh **get_random_bytes** để random một số ngẫu nhiên. 
+- Sau đó, ta gửi dữ liệu này đến userspace thông qua lệnh: 
+  ```copy_to_user(buffer, numberGen, sizeof(int));```
+  Nếu thành công, hàm copy_to_user sẽ trả về 0.
 ## static int dev_release(struct inode *inodep, struct file *filep)
 Nhiệm vụ: Hàm này được khỏi khi đóng một device. 
 Quy trình:
@@ -33,15 +35,18 @@ Quy trình:
 
 # testGenerator.c
 Đây là chương trình C bình thường (thuôc userspace). 
-Chương trình này sẽ gọi lệnh open("/dev/generDev", O_RDWR) để yêu cầu mở một device để random số ngẫu nhiên. 
+Chương trình này sẽ gọi lệnh **open("/dev/generDev", O_RDWR)** để yêu cầu mở một device để random số ngẫu nhiên. 
 Nếu mở thành công, tiến hành đọc số ngẫu nhiên mà device gửi. 
 Nếu thành công, xuất ra số nhận được. 
 
 # Chạy và kiểm tra driver 
 1. Dùng lệnh "make" để build chương trình 
-2. Chạy file sudo insmod generatorDev.ko
-3. Chạy sudo ./test để chạy file test 
-4. Ngắt kết nối: sudo rmmod generatorDev
+2. Load một device 
+```sudo insmod generatorDev.ko```
+3. Chạy file test
+```sudo ./test```
+4. Ngắt kết nối: 
+```sudo rmmod generatorDev```
 Ta có thể xem các tiến trình chạy ở module kernel bằng lệnh: 
-sudo tail -f /var/log/kern.log
+```sudo tail -f /var/log/kern.log```
 
