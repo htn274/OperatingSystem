@@ -7,7 +7,7 @@
 
 int main(){
     int ret, fd;
-    char numReceive[10];
+    char numReceive;
     printf("Starting device test code example...\n");
     
     fd = open("/dev/generDev", O_RDWR); //Open the device to read
@@ -23,7 +23,7 @@ int main(){
         return errno;
     }
 
-    printf("A received number is %u", numReceive[0]);
+    printf("A received number is %u", numReceive);
     
     printf("\nEnd of the program\n");
     return 0;
