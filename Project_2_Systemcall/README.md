@@ -18,14 +18,16 @@ Sửa Makefile của kernel:
 nano Makefile
 ```
 Tìm dòng bên dưới và thêm pnametoid/ và pidtoname/ 
+
 core-y += kernel/ mm/ fs/ ipc/ security/ crypto/ block/ pnametoid/ pidtoname/
+
 Thêm vào syscall table 
 ```
 nano arch/x86/syscalls/syscall_64.tbl
 ```
 Thêm vào file syscall_64.tbl
-350 common pname sys_pnamtoid
-355 common pname sys_pidtoname
+- 350 common pname sys_pnamtoid
+- 355 common pname sys_pidtoname
 Thêm vào dưới file syscall.h 2 dòng sau:
 - asmlinkage long sys_pnametoid(char* process_name);
 - asmlinkage long sys_pidtoname(int pid, char* buf, int len);
