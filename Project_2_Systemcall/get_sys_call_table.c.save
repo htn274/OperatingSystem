@@ -1,0 +1,14 @@
+ssize_t *sys_call_table = (ssize_t*) NULL;
+
+void get_sys_call_table(void){
+	void *swi_addr = (long *) 0xffff0008;
+	unsigned long offet = 0;
+	unsigned long *vector_swi_addr = 0;
+	
+	offset = ((*(long *)swi_addr)&0xfff)+8;
+	vector_swi_addr = *(unsigned long *)(swi_addr+offset);
+
+	w	
+hile (vector_swi_addr++){
+	}
+}

@@ -1,0 +1,8 @@
+# Build hook:
+make
+
+# Insert module:
+sudo insmod hook.ko
+
+# Remove module:
+sudo rmmod hook
