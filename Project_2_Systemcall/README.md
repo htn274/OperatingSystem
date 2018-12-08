@@ -27,8 +27,8 @@ Thêm vào file syscall_64.tbl
 350 common pname sys_pnamtoid
 355 common pname sys_pidtoname
 Thêm vào dưới file syscall.h 2 dòng sau:
-asmlinkage long sys_pnametoid(char* process_name);
-asmlinkage long sys_pidtoname(int pid, char* buf, int len);
+- asmlinkage long sys_pnametoid(char* process_name);
+- asmlinkage long sys_pidtoname(int pid, char* buf, int len);
 ```
 nano include/linux/syscalls.h
 ```
